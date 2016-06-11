@@ -89,6 +89,7 @@ public class TitleFrame extends JFrame {
 			while (!playing.get()) {
 				t.repaint();
 			}
+			t.setVisible(false);
 			Orbital.playOneGame();
 			while (playing.get()) {
 				Thread.sleep(10);
