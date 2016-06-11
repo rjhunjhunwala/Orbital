@@ -53,13 +53,13 @@ public class Controller implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_SPACE:
-			case KeyEvent.VK_Q:
-				GamePanel.p.dX -= 1 * Math.cos(GamePanel.p.turretAngle);
-				GamePanel.p.dY -= 1 * Math.sin(GamePanel.p.turretAngle);
 				GamePanel.items.get().add(new Bullet(GamePanel.p.x+8*Math.cos(GamePanel.p.turretAngle), GamePanel.p.y+8*Math.sin(GamePanel.p.turretAngle), GamePanel.p.dX + 1.5 * Math.cos(GamePanel.p.turretAngle), GamePanel.p.dY + 1.5 * Math.sin(GamePanel.p.turretAngle)));
 				GamePanel.p.dX -= .25 * Math.cos(GamePanel.p.turretAngle);
 				GamePanel.p.dY -= .25 * Math.sin(GamePanel.p.turretAngle);
 				break;
+				case KeyEvent.VK_Q:
+				GamePanel.p.dX -= 1 * Math.cos(GamePanel.p.turretAngle);
+				GamePanel.p.dY -= 1 * Math.sin(GamePanel.p.turretAngle);	
 		}
 	}
 }
