@@ -82,8 +82,6 @@ public class TitleFrame extends JFrame {
 	public static TitleFrame t;
 
 	public static void main(String[] args) throws Exception {
-		Thread.sleep(2000);
-
 		t = new TitleFrame();
 		while (true) {
 			while (!playing.get()) {

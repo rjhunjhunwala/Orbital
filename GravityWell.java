@@ -11,8 +11,8 @@ package orbital;
  */
 public class GravityWell {
 public double g;
-public int x;
-public int y;
+public double x;
+public double y;
 public GravityWell(int inX,int inY,double inG){
 	x=inX;
 	y=inY;

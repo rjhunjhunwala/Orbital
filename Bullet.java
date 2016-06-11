@@ -13,7 +13,7 @@ import java.awt.Color;
  */
 public class Bullet extends Movable{
 		public Bullet(double inX, double inY,double inDx,double inDy){
-		super((int)inX, (int) inY, 2, Color.red);
+		super((int)inX, (int) inY, 2, Color.blue);
 	dX=inDx;
 	dY=inDy;
 

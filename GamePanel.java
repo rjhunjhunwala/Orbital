@@ -2,6 +2,7 @@ package orbital;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -23,51 +24,54 @@ public static Player p;
 
 public static final AtomicReference<ArrayList<GravityWell>> wells = new AtomicReference<>();
 
+
+   public static final Font f=new Font("Times New Roman",18,12);
+   public static final Color orbitalBlue=new Color(153,217,234);
     public static boolean badSpot() {
 					for(Circle c:items.get()){
 						if(c.isTouching(p)){
-						System.err.println("bad spot avoided");
+							System.err.println("bad spot avoided");
 							return true;
 						}
 					}
 					return false;
 				}
-				public GamePanel() throws IOException{
-					items.set(new ArrayList<>());
-					wells.set(new ArrayList<>());
-					int planets=(int) (Math.random()*10+Math.random()*10);
+
+	public GamePanel() throws IOException {
+		items.set(new ArrayList<>());
+		wells.set(new ArrayList<>());
+		int planets=(int) (Math.random()*10+Math.random()*10);
 //					for(int i=0;i<planets;i++){
 //						int x,y,g;
 //						items.get().add(new Circle(x=(int) (Math.random()*screenlength),y=(int) (Math.random()*screenheight),g=(int) (Math.random()*14)+10));
 //					wells.get().add(new GravityWell(x,y,g*g));
 //					}
-items.get().add(new Circle(middle,horizon,40));
-wells.get().add(new GravityWell(middle,horizon,40*40));
-					p=new Player(middle/2,horizon/2);
+		items.get().add(new Circle(middle,horizon,40));
+		wells.get().add(new GravityWell(middle,horizon,40*40));
+		items.get().add(new MovingPlanet(middle,horizon-300,25,1.333333,0));
+		p=new Player(middle/2,horizon/2);
+		this.setBackground(Color.BLACK);
+	}
 
-					this.setBackground(Color.BLACK);
-
-    }
-
-    @Override
-
-    public Dimension getPreferredSize() {
-
-        return new Dimension(screenlength, screenheight);
-
-    }
-
-   
-    @Override
-    public void paintComponent(Graphics g) {
-					super.paintComponent(g);
-					items.get().stream().filter((c) -> (c!=null)).forEach((Circle c) -> {
-						if(c.alive.get()) {
-							c.drawSelf(g);
-						}
-					});
-    p.drawSelf(g);
-				}
-  
+	@Override
+	public Dimension getPreferredSize() {
+		return new Dimension(screenlength, screenheight);
+	}
+	
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		items.get().stream().filter((c) -> (c!=null)).forEach((Circle c) -> {
+			if(c.alive.get()) {
+				c.drawSelf(g);
+			}
+		});
+		p.drawSelf(g);
+		g.setColor(orbitalBlue);
+		g.setFont(f);
+		g.drawString("Shields: "+Enemy.shipHealth*10, 10,10);
+		g.drawString("Planet: "+Enemy.planetsHealth*10,screenlength-140,10);
+	}
+	
     
 }

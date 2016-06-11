@@ -24,17 +24,42 @@ double turretAngle;
 		g.drawLine((int)x,(int) y,(int)(x+6*Math.cos(turretAngle)),(int) (y+6*Math.sin(turretAngle)));
 	}
 @Override
-public void checkCollisions(){
+public boolean noCollisions(){
 	for (Circle circle : GamePanel.items.get()) {
 		if(circle!=null&&circle!=this&&circle.alive.get()) {
-			if(this.isTouching(circle)&&!(circle instanceof Bullet)){
-				Orbital.playerIsAlive.set(false);
-				return;
+			if(this.isTouching(circle)&&!(circle instanceof Bullet||circle instanceof Enemy)){
+				//Orbital.playerIsAlive.set(false);
+
+if(circle instanceof MovingPlanet){
+	
+	x-=dX;
+	y-=dY;
+	dX=((Movable) circle).dX;
+	dY=((Movable) circle).dY;
+
+	x+=dX;
+	y+=dY;
+return false;
+}
+else
+{
+	x-=dX;
+	y-=dY;
+	dX=0;
+	dY=0;
+}
+				
+
+				return false;
 			}
 		}
 	}
 	if(x<-6||y<-6||y>GamePanel.screenheight+6||x>GamePanel.screenlength+6){
-		Orbital.playerIsAlive.set(false);
+x+=GamePanel.screenlength;
+y+=GamePanel.screenheight;
+x%=GamePanel.screenlength;
+y%=GamePanel.screenheight;
 	}
+	return true;
 }
 }

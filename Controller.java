@@ -53,13 +53,33 @@ public class Controller implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_SPACE:
-				GamePanel.items.get().add(new Bullet(GamePanel.p.x+8*Math.cos(GamePanel.p.turretAngle), GamePanel.p.y+8*Math.sin(GamePanel.p.turretAngle), GamePanel.p.dX + 1.5 * Math.cos(GamePanel.p.turretAngle), GamePanel.p.dY + 1.5 * Math.sin(GamePanel.p.turretAngle)));
-				GamePanel.p.dX -= .25 * Math.cos(GamePanel.p.turretAngle);
-				GamePanel.p.dY -= .25 * Math.sin(GamePanel.p.turretAngle);
-				break;
+				Bullet b=new Bullet(GamePanel.p.x+8*Math.cos(GamePanel.p.turretAngle), GamePanel.p.y+8*Math.sin(GamePanel.p.turretAngle), GamePanel.p.dX + 9 * Math.cos(GamePanel.p.turretAngle), GamePanel.p.dY +9 * Math.sin(GamePanel.p.turretAngle));
+				GamePanel.items.get().add(b);
+b.x-=GamePanel.p.dX-b.dX;
+b.y-=GamePanel.p.dY*-b.dY;
+				GamePanel.p.dX -= 0 * Math.cos(GamePanel.p.turretAngle);
+				GamePanel.p.dY -= 0 * Math.sin(GamePanel.p.turretAngle);
+//				GamePanel.p.x+=GamePanel.p.dX;
+//				GamePanel.p.y+=GamePanel.p.dY;
+		  break;
 				case KeyEvent.VK_Q:
-				GamePanel.p.dX -= 1 * Math.cos(GamePanel.p.turretAngle);
-				GamePanel.p.dY -= 1 * Math.sin(GamePanel.p.turretAngle);	
+				GamePanel.p.dX -= 2 * Math.cos(GamePanel.p.turretAngle);
+				GamePanel.p.dY -= 2 * Math.sin(GamePanel.p.turretAngle);	
+						GamePanel.p.x+=GamePanel.p.dX;
+				GamePanel.p.y+=GamePanel.p.dY;
+				break;				
+				case KeyEvent.VK_W:
+				GamePanel.p.dX -= 4 * Math.cos(GamePanel.p.turretAngle);
+				GamePanel.p.dY -= 4 * Math.sin(GamePanel.p.turretAngle);	
+						GamePanel.p.x+=GamePanel.p.dX;
+				GamePanel.p.y+=GamePanel.p.dY;
+		break;
+									case KeyEvent.VK_E:
+				GamePanel.p.dX -= 6 * Math.cos(GamePanel.p.turretAngle);
+				GamePanel.p.dY -= 6 * Math.sin(GamePanel.p.turretAngle);	
+						GamePanel.p.x+=GamePanel.p.dX;
+				GamePanel.p.y+=GamePanel.p.dY;
+		break;
 		}
 	}
 }

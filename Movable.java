@@ -27,34 +27,42 @@ double dY;
 	}
 		public void step(){
 			try{
-			applyOutwardForces();
+						if(noCollisions()){
+				applyOutwardForces();
 			x+=dX;
 			y+=dY;
-			checkCollisions();
+						}
 			}catch(ConcurrentModificationException ex){
 				//my sincere apologies
 			}
 			}
-public void checkCollisions(){
+public boolean noCollisions(){
 	for (Circle circle : GamePanel.items.get()) {
 		if(circle!=null&&circle!=this&&circle.alive.get()) {
 			if(this.isTouching(circle)){
 				this.alive.set(false);
-				if((circle instanceof Movable)) {
+				if((circle instanceof Movable)&&!(circle instanceof MovingPlanet)) {
 					circle.alive.set(false);
 				}
-				return;
+				return false;
 			}
 		}
 	}
 	if(this.isTouching(GamePanel.p)){
 		this.alive.set(false);
+	return false;
 	}
-		if(x<-6||y<-6||y>GamePanel.screenheight+6||x>GamePanel.screenlength+6){
-		this.alive.set(false);
+	if(x<-6||y<-6||y>GamePanel.screenheight+6||x>GamePanel.screenlength+6){
+x+=GamePanel.screenlength;
+y+=GamePanel.screenheight;
+x%=GamePanel.screenlength;
+y%=GamePanel.screenheight;
 	}
+	return true;
 }
-	private void applyOutwardForces() {
+
+
+	public void applyOutwardForces() {
 for(GravityWell well:GamePanel.wells.get()){
 	if(well!=null){
 		double a =this.x-well.x;
