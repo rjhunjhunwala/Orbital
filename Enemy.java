@@ -1,6 +1,8 @@
 package orbital;
 
 import java.awt.Color;
+import java.io.File;
+import javax.imageio.ImageIO;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -13,11 +15,13 @@ import java.awt.Color;
  * @author rohan
  */
 public class Enemy extends Movable{
-static int planetsHealth=10;
-static int shipHealth=10;
+static int planetsHealth;
+static int shipHealth;
+static int score;
 public Enemy(){
-				super(-1000,-1000, 10, Color.red);
-		switch((int) (Math.random()*4)){
+				super(-1000,-1000, 8, Color.red);
+			score++;
+				switch((int) (Math.random()*4)){
 			case 0:
 				x=Math.random()*GamePanel.screenlength;
 				y=-50*Math.random();
@@ -35,7 +39,11 @@ public Enemy(){
 				x=GamePanel.screenlength+50*Math.random();
 				break;
 		}
-
+		try{
+			sprite=ImageIO.read(new File("asteroid.gif"));
+		}catch(Exception ex){
+			
+		}
 	}
 @Override
 	public boolean noCollisions(){
@@ -46,7 +54,7 @@ public Enemy(){
 				this.alive.set(false);
 				if((circle instanceof Movable&&!(circle instanceof MovingPlanet))) {
 					circle.alive.set(false);
-				
+
 				}
 				else if(i==0){
 		   planetsHealth--;
@@ -60,7 +68,8 @@ public Enemy(){
 return false;
 			}
 		}
-	}
+	i++;
+		}
 	if(this.isTouching(GamePanel.p)){
 		this.alive.set(false);
 	//	Orbital.playerIsAlive.set(false);
@@ -78,7 +87,7 @@ return false;
 			double a =this.x-well.x;
 			double b= this.y-well.y;
 			double dist=Math.sqrt(a*a+b*b);
-			double gForce = well.g/(15*dist*dist);
+			double gForce = well.g/(35*dist*dist);
 			double angle=Math.atan(b/a);
 			if(a<0){
 				angle=Math.PI+angle;

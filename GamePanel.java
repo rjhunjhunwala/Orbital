@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,10 +47,11 @@ public static final AtomicReference<ArrayList<GravityWell>> wells = new AtomicRe
 //						items.get().add(new Circle(x=(int) (Math.random()*screenlength),y=(int) (Math.random()*screenheight),g=(int) (Math.random()*14)+10));
 //					wells.get().add(new GravityWell(x,y,g*g));
 //					}
-		items.get().add(new Circle(middle,horizon,40));
-		wells.get().add(new GravityWell(middle,horizon,40*40));
-		items.get().add(new MovingPlanet(middle,horizon-300,25,1.333333,0));
+		items.get().add(new Circle(middle,horizon,60));
+		wells.get().add(new GravityWell(middle,horizon,60*60));
+		items.get().add(new MovingPlanet(middle,horizon-300,25,2,0));
 		p=new Player(middle/2,horizon/2);
+		p.turretAngle=Math.PI/4;
 		this.setBackground(Color.BLACK);
 	}
 
@@ -61,16 +63,21 @@ public static final AtomicReference<ArrayList<GravityWell>> wells = new AtomicRe
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+try{
 		items.get().stream().filter((c) -> (c!=null)).forEach((Circle c) -> {
 			if(c.alive.get()) {
 				c.drawSelf(g);
 			}
 		});
+}catch(ConcurrentModificationException ex){
+	//oops!
+}
 		p.drawSelf(g);
 		g.setColor(orbitalBlue);
 		g.setFont(f);
-		g.drawString("Shields: "+Enemy.shipHealth*10, 10,10);
-		g.drawString("Planet: "+Enemy.planetsHealth*10,screenlength-140,10);
+		g.drawString("Shields: "+Enemy.shipHealth*10, 0,10);
+		g.drawString("Planet: "+Enemy.planetsHealth*10,screenlength-60,10);
+				g.drawString("Score: "+Enemy.score*100,screenlength/2,10);
 	}
 	
     

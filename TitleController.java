@@ -42,8 +42,9 @@ public class TitleController implements KeyListener{
              break;           
          case 'p':
          case 'P':
-      if(!TitleFrame.TitlePanel.onHelpScreen)
-             TitleFrame.playing.set(true);
+      if(!TitleFrame.TitlePanel.onHelpScreen) {
+							TitleFrame.playing.set(true);
+					}
 
      break;
      }

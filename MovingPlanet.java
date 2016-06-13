@@ -6,7 +6,9 @@
 package orbital;
 
 import java.awt.Color;
+import java.io.File;
 import java.util.ConcurrentModificationException;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -18,6 +20,14 @@ private GravityWell well;
 		super(inX, inY, inR, Color.gray, inDx, inDY);
 		well=new GravityWell(inX,inY,inR*inR);
 		GamePanel.wells.get().add(well);
+			if(radius==25){
+		//The moon has a radius of 25 units
+		try{
+			sprite=ImageIO.read(new File("moon.png"));
+		}catch(Exception ex){
+			
+		}
+	}
 	}
 @Override
 			public void step(){

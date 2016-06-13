@@ -23,6 +23,7 @@ public class Game implements Runnable{
 		startEnemies=false;
 		Enemy.planetsHealth=10;
 		Enemy.shipHealth=10;
+		Enemy.score=0;
 		while(Orbital.playerIsAlive.get()){
 			try {
 				Thread.sleep(20);
@@ -33,7 +34,7 @@ public class Game implements Runnable{
 			if(steps==500){
 				startEnemies=true;
 			}
-			if(startEnemies && steps%250==0) {
+			if(startEnemies && steps%(450-(Enemy.score>200?200:Enemy.score))==0) {
 				GamePanel.items.get().add(new Enemy());
 			}
 			if(GamePanel.p!=null) {
