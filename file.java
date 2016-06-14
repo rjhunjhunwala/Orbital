@@ -132,7 +132,7 @@ public class file {
 		return .1;
 	}
 
-	//Pre: fileName contains the name of a txt file in current directory (folder)
+	//Pre: fileName contains the name of a txt file in current directory 
 	//Post: lines of text are written to fileName
 
 	public static void writeToFile(String fileName, String stuff) {
@@ -149,9 +149,11 @@ public class file {
 
 		}
 	}
-		//Pre: fileName contains the name of a txt file in current directory (folder)
-	//Post: lines of highscores are written to fileName
-
+/**
+	* Writes a variable number of high scores to a file
+	* @param fileName the file locally to write to
+	* @param scores the high score object(s)
+	*/
 	public static void writeHighScoresToFile(String fileName, HighScore... scores) {
 
 		BufferedWriter output = null;
@@ -168,15 +170,19 @@ for(HighScore stuff: scores){
 
 		}
 	}
-
-	public static void writeIntToFile(String fileName, int stuff) {
+/**
+	* Writes a single integer to a file
+	* @param fileName
+	* @param toWrite 
+	*/
+	public static void writeIntToFile(String fileName, int toWrite) {
 
 		BufferedWriter output = null;
 		try {
 			File aFile = new File(fileName);
 			FileWriter myWriter = new FileWriter(aFile);
 			output = new BufferedWriter(myWriter);
-			output.write(stuff + "");
+			output.write(toWrite + "");
 			output.newLine();
 			output.close();
 		} catch (Exception e) {
@@ -184,14 +190,14 @@ for(HighScore stuff: scores){
 		}
 	}
 
-	public static void writeDoubleToFile(String fileName, double stuff) {
+	public static void writeDoubleToFile(String fileName, double toWrite) {
 
 		BufferedWriter output = null;
 		try {
 			File aFile = new File(fileName);
 			FileWriter myWriter = new FileWriter(aFile);
 			output = new BufferedWriter(myWriter);
-			output.write(stuff + "");
+			output.write(toWrite + "");
 			output.newLine();
 			output.close();
 		} catch (Exception e) {

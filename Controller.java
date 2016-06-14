@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package orbital;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -17,15 +11,19 @@ import java.util.logging.Logger;
  */
 public class Controller implements KeyListener {
 
-	public static AtomicBoolean firing = new AtomicBoolean(false);
-
+	/**
+	 * Unused keyTyped event
+	 *
+	 * @param e
+	 */
 	@Override
 	public void keyTyped(KeyEvent e) {
-		//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//nil
 	}
 
 	/**
-	 * Speed in blocks per event
+	 * Allows controls that can be held down These currently include left and right
+	 * arrows as well as the a/d keys Turns the spacecraft
 	 *
 	 * @param e
 	 */
@@ -34,13 +32,13 @@ public class Controller implements KeyListener {
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_LEFT:
 			case KeyEvent.VK_A:
-				if (GamePanel.p != null&&GamePanel.p.noCollisions()) {
+				if (GamePanel.p != null && GamePanel.p.noCollisions()) {
 					GamePanel.p.turretAngle -= Math.PI / 24;
 				}
 				break;
 			case KeyEvent.VK_RIGHT:
 			case KeyEvent.VK_D:
-				if (GamePanel.p != null&&GamePanel.p.noCollisions()) {
+				if (GamePanel.p != null && GamePanel.p.noCollisions()) {
 					GamePanel.p.turretAngle += Math.PI / 24;
 				}
 				break;
@@ -51,6 +49,12 @@ public class Controller implements KeyListener {
 		GamePanel.p.turretAngle %= 2 * Math.PI;
 	}
 
+	/**
+	 * This is for controls that can not be held down. Such as Shooting (With
+	 * space) Thrusters QWE, and rearwards thruster S
+	 *
+	 * @param e
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 		switch (e.getKeyCode()) {
@@ -82,7 +86,7 @@ public class Controller implements KeyListener {
 				break;
 			case KeyEvent.VK_E:
 				GamePanel.p.dX -= 5 * Math.cos(GamePanel.p.turretAngle);
-				GamePanel.p.dY -= 5  * Math.sin(GamePanel.p.turretAngle);
+				GamePanel.p.dY -= 5 * Math.sin(GamePanel.p.turretAngle);
 				GamePanel.p.x += 2 * GamePanel.p.dX;
 				GamePanel.p.y += 2 * GamePanel.p.dY;
 				break;

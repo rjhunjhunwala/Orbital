@@ -14,11 +14,15 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 /**
+ * The player has many different features
  *
  * @author rohan
  */
 public class Player extends Movable {
 
+	/**
+	 * The angle this vehicle is facing
+	 */
 	double turretAngle;
 
 	public Player(int inX, int inY) {
@@ -45,6 +49,13 @@ public class Player extends Movable {
 
 	}
 
+	/**
+	 * Currently unused method which would calculate a realistic angle to render
+	 * this object. We now render the object based not on what direction is
+	 * traveling but rather how the user chooses to orient it
+	 *
+	 * @return
+	 */
 	public double calculateAngle() {
 		double angle = Math.atan(dY / dX);
 		if (dX < 0) {
@@ -52,7 +63,16 @@ public class Player extends Movable {
 		}
 		return angle;
 	}
-public static final boolean safeLandingsEnforced=false;
+	/**
+	 * Turn this flag on to enable damage being received upon low quality landings
+	 */
+	public static final boolean safeLandingsEnforced = false;
+
+	/**
+	 * Allows the Player to land on planets
+	 *
+	 * @return
+	 */
 	@Override
 	public boolean noCollisions() {
 		for (Circle circle : GamePanel.items.get()) {
@@ -76,34 +96,34 @@ public static final boolean safeLandingsEnforced=false;
 						y += dY;
 						dX = 0;
 						dY = 0;
-						Movable m=(Movable) circle;
-					double angleDiff=Math.abs(oldAngle - turretAngle);
-					if ( safeLandingsEnforced &&angleDiff> .433&&speed-Math.sqrt(m.dX*m.dX+m.dY*m.dY)>.5){
-						Enemy.shipHealth -=(int) ((angleDiff*3));
-						if (Enemy.shipHealth <= 0) {
-							Orbital.playerIsAlive.set(false);
+						Movable m = (Movable) circle;
+						double angleDiff = Math.abs(oldAngle - turretAngle);
+						if (safeLandingsEnforced && angleDiff > .433 && speed - Math.sqrt(m.dX * m.dX + m.dY * m.dY) > .5) {
+							Enemy.shipHealth -= (int) ((angleDiff * 3));
+							if (Enemy.shipHealth <= 0) {
+								Orbital.playerIsAlive.set(false);
+							}
 						}
-					}
 					} else {
 
 						x -= dX;
 						y -= dY;
-						dX =0;
+						dX = 0;
 						dY = 0;
-					double angleDiff=Math.abs(oldAngle - turretAngle);
-					if ( safeLandingsEnforced&&angleDiff> .433&&speed>.5) {
-						Enemy.shipHealth -=(int) ((angleDiff*3)*speed);
-						if (Enemy.shipHealth <= 0) {
-							Orbital.playerIsAlive.set(false);
+						double angleDiff = Math.abs(oldAngle - turretAngle);
+						if (safeLandingsEnforced && angleDiff > .433 && speed > .5) {
+							Enemy.shipHealth -= (int) ((angleDiff * 3) * speed);
+							if (Enemy.shipHealth <= 0) {
+								Orbital.playerIsAlive.set(false);
+							}
 						}
 					}
+
+					return false;
 				}
 
-				return false;
-				}
-			
 			}
-	
+
 		}
 		if (x < -6 || y < -6 || y > GamePanel.screenheight + 6 || x > GamePanel.screenlength + 6) {
 			x += GamePanel.screenlength;

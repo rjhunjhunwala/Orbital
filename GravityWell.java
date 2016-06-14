@@ -1,21 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package orbital;
 
 /**
- *
+ * Simple structure for holding the location of a gravity well
  * @author rohan
  */
 public class GravityWell {
-public double g;
-public double x;
-public double y;
-public GravityWell(int inX,int inY,double inG){
-	x=inX;
-	y=inY;
-	g=inG;
-}
+/**
+	* acceleration due to gravity per tick at a radius of 1 pixel
+	*/
+	public double g;
+	/**
+		* X coordinate of the source 
+		*/
+	public double x;
+	/**
+		* Y coordinate
+		*/
+	public double y;
+
+	public GravityWell(int inX, int inY, double inG) {
+		x = inX;
+		y = inY;
+		g = inG;
+	}
 }

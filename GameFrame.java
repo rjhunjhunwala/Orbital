@@ -6,28 +6,30 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * Raycasting game "Islands of Violence
+ * Orbital JFrame to house the game
  *
  */
 public final class GameFrame extends JFrame {
-public JPanel p;
-    GameFrame() throws IOException {
 
-        super("Can you survive?");
+	public JPanel p;
 
-        p = new GamePanel();
+	GameFrame() throws IOException {
 
-        this.add(p);
+		super("Defend your home!");
 
-        this.pack();
+		p = new GamePanel();
 
-        this.setBackground(new Color(255, 255, 255));
+		this.add(p);
 
-        this.setVisible(true);
+		this.pack();
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setBackground(new Color(255, 255, 255));
 
-    this.addKeyListener(new Controller());
-    this.setLocationRelativeTo(null);
-    }
+		this.setVisible(true);
+
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		this.addKeyListener(new Controller());
+		this.setLocationRelativeTo(null);
+	}
 }

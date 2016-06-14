@@ -12,43 +12,48 @@ import javax.swing.JFileChooser;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author rohan
  */
-public class Game implements Runnable{
-	private long steps=0;
-	private boolean startEnemies=false;
-	@Override
-	public void run(){
+public class Game implements Runnable {
 
-		startEnemies=false;
-		Enemy.planetsHealth=10;
-		Enemy.shipHealth=10;
-		Enemy.score=0;
-		while(Orbital.playerIsAlive.get()){
+	private long steps = 0;
+	private boolean startEnemies = false;
+
+	/**
+	 * A background game loop that constantly allows updates to all entities
+	 * on-screen
+	 */
+	@Override
+	public void run() {
+
+		startEnemies = false;
+		Enemy.planetsHealth = 10;
+		Enemy.shipHealth = 10;
+		Enemy.score = 0;
+		while (Orbital.playerIsAlive.get()) {
 			try {
 				Thread.sleep(20);
 			} catch (InterruptedException ex) {
 				Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
 			}
 			steps++;
-			if(steps==500){
-				startEnemies=true;
+			if (steps == 500) {
+				startEnemies = true;
 			}
-			if(startEnemies && steps%(400-(Enemy.score*5>200?200:Enemy.score*5))==0) {
+			if (startEnemies && steps % (400 - (Enemy.score * 5 > 200 ? 200 : Enemy.score * 5)) == 0) {
 				GamePanel.items.get().add(new Enemy());
 			}
-			if(GamePanel.p!=null) {
+			if (GamePanel.p != null) {
 				GamePanel.p.step();
 			}
-			ArrayList<Circle> items=GamePanel.items.get();
-			try{
-				items.stream().filter((c) -> (c!=null&&c.alive.get())).filter((c) -> (c instanceof Movable)).forEach((c) -> {
+			ArrayList<Circle> items = GamePanel.items.get();
+			try {
+				items.stream().filter((c) -> (c != null && c.alive.get())).filter((c) -> (c instanceof Movable)).forEach((c) -> {
 					((Movable) c).step();
 				});
-			}catch(ConcurrentModificationException ex){
+			} catch (ConcurrentModificationException ex) {
 				//sorry
 			}
 		}
