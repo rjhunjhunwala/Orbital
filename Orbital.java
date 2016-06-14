@@ -61,6 +61,7 @@ public class Orbital {
         {
             popUp("You lose");
         }
+								HighScore.manageScore(Enemy.score);
 								GamePanel.p=null;
 								GamePanel.items.set(new ArrayList<>());
 								GamePanel.wells.set(new ArrayList<>());

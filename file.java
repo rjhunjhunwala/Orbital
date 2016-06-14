@@ -23,24 +23,14 @@ import java.util.Scanner;
  * @author rohan
  */
 public class file {
-//public static int[][] loadMapFromFile(String fileName){
-//    String[] lines=getWordsFromFile(fileName);
-//    int[][] map=new int[lines[0].length()][lines.length];
-//      for(int i=0;i<map.length;i++){
-//          for(int j=0;j<map[0].length;j++){
-//              map[i][j]=Integer.parseInt(""+lines[j].charAt(i));
-//          }
-//      }
-//      MazeRunner.visited = new boolean[map.length][map[0].length];  
-//      return map;
-//}
+
 	/**
 	 * Prints each line of the file fileName.
 	 *
 	 * @param fileName is the path to the file or just the name if it is local
 	 */
 	public static void printFile(String fileName) {
-		try {//A try statment is used when there is a possiblity something won't work
+		try {
 			File textFile = new File(fileName);
 			Scanner sc = new Scanner(textFile);
 			while (sc.hasNextLine()) {
@@ -103,7 +93,7 @@ public class file {
 	public static String getStringFromFile(String fileName) {
 		String wordBank;
 		int i = 0;
-		try {//A try statment is used when there is a possiblity something won't work
+		try {
 			File textFile = new File(fileName);
 			Scanner sc = new Scanner(textFile);
 			wordBank = sc.nextLine();
@@ -117,7 +107,7 @@ public class file {
 	public static double getDoubleFromFile(String fileName) {
 		String wordBank;
 		int i = 0;
-		try {//A try statment is used when there is a possiblity something won't work
+		try {
 			File textFile = new File(fileName);
 			Scanner sc = new Scanner(textFile);
 			wordBank = sc.nextLine();
@@ -131,7 +121,7 @@ public class file {
 	public static double getIntFromFile(String fileName) {
 		String wordBank;
 		int i = 0;
-		try {//A try statment is used when there is a possiblity something won't work
+		try {
 			File textFile = new File(fileName);
 			Scanner sc = new Scanner(textFile);
 			wordBank = sc.nextLine();
@@ -153,8 +143,27 @@ public class file {
 			FileWriter myWriter = new FileWriter(aFile);
 			output = new BufferedWriter(myWriter);
 			output.write(stuff);
-			output.newLine();//This is needed to get to the next line
-			output.close();//file must be closed when you are done
+			output.newLine();
+			output.close();
+		} catch (Exception e) {
+
+		}
+	}
+		//Pre: fileName contains the name of a txt file in current directory (folder)
+	//Post: lines of highscores are written to fileName
+
+	public static void writeHighScoresToFile(String fileName, HighScore... scores) {
+
+		BufferedWriter output = null;
+		try {
+			File aFile = new File(fileName);
+			FileWriter myWriter = new FileWriter(aFile);
+			output = new BufferedWriter(myWriter);
+for(HighScore stuff: scores){
+			output.write(stuff.toString());
+			output.newLine();
+}
+			output.close();
 		} catch (Exception e) {
 
 		}
@@ -168,8 +177,8 @@ public class file {
 			FileWriter myWriter = new FileWriter(aFile);
 			output = new BufferedWriter(myWriter);
 			output.write(stuff + "");
-			output.newLine();//This is needed to get to the next line
-			output.close();//file must be closed when you are done
+			output.newLine();
+			output.close();
 		} catch (Exception e) {
 
 		}
@@ -183,8 +192,8 @@ public class file {
 			FileWriter myWriter = new FileWriter(aFile);
 			output = new BufferedWriter(myWriter);
 			output.write(stuff + "");
-			output.newLine();//This is needed to get to the next line
-			output.close();//file must be closed when you are done
+			output.newLine();
+			output.close();
 		} catch (Exception e) {
 
 		}
@@ -199,9 +208,9 @@ public class file {
 			output = new BufferedWriter(myWriter);
 			for (int i = 0; i < intArray.length; i++) {
 				output.write(intArray[i] + "");
-				output.newLine();//This is needed to get to the next line
+				output.newLine();
 			}
-			output.close();//file must be closed when you are done
+			output.close();
 		} catch (Exception e) {
 
 		}
@@ -216,9 +225,9 @@ public class file {
 			output = new BufferedWriter(myWriter);
 			for (int i = 0; i < intArray.size(); i++) {
 				output.write(intArray.get(i) + "");
-				output.newLine();//This is needed to get to the next line
+				output.newLine();
 			}
-			output.close();//file must be closed when you are done
+			output.close();
 		} catch (Exception e) {
 
 		}

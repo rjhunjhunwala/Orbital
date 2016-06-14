@@ -26,7 +26,7 @@ public static Player p;
 public static final AtomicReference<ArrayList<GravityWell>> wells = new AtomicReference<>();
 
 
-   public static final Font f=new Font("Times New Roman",18,12);
+   public static final Font f=new Font("Monospaced",18,12);
    public static final Color orbitalBlue=new Color(153,217,234);
     public static boolean badSpot() {
 					for(Circle c:items.get()){
@@ -76,8 +76,8 @@ try{
 		g.setColor(orbitalBlue);
 		g.setFont(f);
 		g.drawString("Shields: "+Enemy.shipHealth*10, 0,10);
-		g.drawString("Planet: "+Enemy.planetsHealth*10,screenlength-60,10);
-				g.drawString("Score: "+Enemy.score*100,screenlength/2,10);
+		g.drawString("Planet: "+Enemy.planetsHealth*10,screenlength-80,10);
+				g.drawString("Score: "+Enemy.score*100,screenlength/2-35,10);
 	}
 	
     
