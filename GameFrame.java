@@ -13,11 +13,11 @@ public final class GameFrame extends JFrame {
 
 	public JPanel p;
 
-	GameFrame() throws IOException {
+	GameFrame(boolean sandbox) throws IOException {
 
-		super("Defend your home!");
+		super(sandbox?"Test your piloting skills!":"Defend your home!");
 
-		p = new GamePanel();
+		p = new GamePanel(sandbox);
 
 		this.add(p);
 
@@ -30,6 +30,8 @@ public final class GameFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		this.addKeyListener(new Controller());
-		this.setLocationRelativeTo(null);
+
+		this.setExtendedState(MAXIMIZED_BOTH);
+//this.setLocationRelativeTo(null);
 	}
 }

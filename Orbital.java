@@ -25,12 +25,15 @@ public class Orbital {
 	/**
 	 * plays one game then hides the window and pops up the main menu
 	 *
+	 * @param sandbox is a boolean flag determining whether or not asteroids will
+	 * spawn. Sandbox mode allows the user to experiment with orbits and proper landings
+	 *
 	 * @throws IOException
 	 */
-	public static void playOneGame() throws IOException {
+	public static void playOneGame(boolean sandbox) throws IOException {
 		playerIsAlive = new AtomicBoolean(true);
-		new Thread(new Game()).start();
-		GameFrame g = new GameFrame();
+		new Thread(sandbox?new SandboxGame():new Game()).start();
+		GameFrame g = new GameFrame(sandbox);
 		while (playerIsAlive.get()) {
 			g.repaint();
 		}

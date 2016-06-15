@@ -26,7 +26,7 @@ import javax.swing.JPanel;
  * @author Rohans
  */
 public class TitleFrame extends JFrame {
-
+public static boolean sandboxModeEnabled;
 	public static AtomicBoolean playing = new AtomicBoolean(false);
 	private static final long serialVersionUID = 1L;
 
@@ -39,8 +39,9 @@ public class TitleFrame extends JFrame {
 			while (!playing.get()) {
 				t.repaint();
 			}
-			t.setVisible(false);
-			Orbital.playOneGame();
+						t.setVisible(false);
+			Orbital.playOneGame(sandboxModeEnabled);
+
 			while (playing.get()) {
 				Thread.sleep(10);
 			}

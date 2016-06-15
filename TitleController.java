@@ -37,12 +37,16 @@ public class TitleController implements KeyListener {
 						TitleFrame.TitlePanel.screen.set(Screens.help);
 					}
 					break;
+				case 's':
+				case 'S':
+			 					if (TitleFrame.TitlePanel.screen.get() == Screens.title) {
+TitleFrame.sandboxModeEnabled=true;
+					}
 				case 'p':
 				case 'P':
 					if (TitleFrame.TitlePanel.screen.get() == Screens.title) {
 						TitleFrame.playing.set(true);
 					}
-
 					break;
 				case 'h':
 				case 'H':

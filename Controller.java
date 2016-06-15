@@ -59,6 +59,7 @@ public class Controller implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_SPACE:
+			if(GamePanel.sandboxModeEnabled){
 				Bullet b = new Bullet(GamePanel.p.x + 8 * Math.cos(Math.PI + GamePanel.p.turretAngle), GamePanel.p.y + (GamePanel.p.radius + 1) * Math.sin(Math.PI + GamePanel.p.turretAngle), GamePanel.p.dX + (GamePanel.p.radius + 1) * Math.cos(GamePanel.p.turretAngle + Math.PI), GamePanel.p.dY + 9 * Math.sin(GamePanel.p.turretAngle + Math.PI));
 				GamePanel.items.get().add(b);
 				b.x -= GamePanel.p.dX - b.dX;
@@ -67,6 +68,7 @@ public class Controller implements KeyListener {
 				GamePanel.p.dY -= 0 * Math.sin(GamePanel.p.turretAngle);
 //				GamePanel.p.x+=GamePanel.p.dX;
 //				GamePanel.p.y+=GamePanel.p.dY;
+			}
 				break;
 			case KeyEvent.VK_S:
 				GamePanel.p.dX += 1 * Math.cos(GamePanel.p.turretAngle);

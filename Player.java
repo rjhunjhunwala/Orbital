@@ -11,6 +11,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.concurrent.atomic.AtomicBoolean;
 import javax.imageio.ImageIO;
 
 /**
@@ -20,6 +21,14 @@ import javax.imageio.ImageIO;
  */
 public class Player extends Movable {
 
+	/**
+	 * Turn this flag on to enable damage being received upon low quality landings
+	 */
+	public boolean safeLandingsEnforced;
+/**
+	* Prevents the ship from continually taking damage
+	*/
+	public AtomicBoolean canTakeDamage=new AtomicBoolean(false);
 	/**
 	 * The angle this vehicle is facing
 	 */
@@ -63,10 +72,6 @@ public class Player extends Movable {
 		}
 		return angle;
 	}
-	/**
-	 * Turn this flag on to enable damage being received upon low quality landings
-	 */
-	public static final boolean safeLandingsEnforced = false;
 
 	/**
 	 * Allows the Player to land on planets
@@ -85,11 +90,11 @@ public class Player extends Movable {
 					}
 					turretAngle = angle;
 
-					double speed = Math.sqrt(dX * dX - dY * dY);
-
 					if (circle instanceof MovingPlanet) {
 						x -= dX * 1.1;
 						y -= dY * 1.1;
+						double pastDX=dX;
+						double pastDY=dY;
 						dX += ((Movable) circle).dX;
 						dY += ((Movable) circle).dY;
 						x += dX;
@@ -97,22 +102,33 @@ public class Player extends Movable {
 						dX = 0;
 						dY = 0;
 						Movable m = (Movable) circle;
-						double angleDiff = Math.abs(oldAngle - turretAngle);
-						if (safeLandingsEnforced && angleDiff > .433 && speed - Math.sqrt(m.dX * m.dX + m.dY * m.dY) > .5) {
-							Enemy.shipHealth -= (int) ((angleDiff * 3));
+						double dXDiff = pastDX - m.dX;
+						double dYDiff = pastDY - m.dY;
+						double collisionSpeed =pastDX==0&&pastDY==0?0: Math.sqrt(dXDiff * dXDiff + dYDiff * dYDiff);
+						double angleDiff =(oldAngle - turretAngle);
+angleDiff=Math.abs(angleDiff%(2*Math.PI));
+if(angleDiff>Math.PI){
+	angleDiff=Math.PI*2-angleDiff;
+}
+						if (safeLandingsEnforced && (angleDiff > .7 || collisionSpeed > 7)) {
+							Enemy.shipHealth -= 1 + (int) ((angleDiff>.7?angleDiff-.6:0 * 3))+(collisionSpeed>3?2:0);
 							if (Enemy.shipHealth <= 0) {
 								Orbital.playerIsAlive.set(false);
 							}
 						}
 					} else {
-
+						double speed = Math.sqrt(dX * dX - dY * dY);
 						x -= dX;
 						y -= dY;
 						dX = 0;
 						dY = 0;
-						double angleDiff = Math.abs(oldAngle - turretAngle);
-						if (safeLandingsEnforced && angleDiff > .433 && speed > .5) {
-							Enemy.shipHealth -= (int) ((angleDiff * 3) * speed);
+						double angleDiff =(oldAngle - turretAngle);
+angleDiff=Math.abs(angleDiff%(2*Math.PI));
+if(angleDiff>Math.PI){
+	angleDiff=Math.PI*2-angleDiff;
+}
+						if (safeLandingsEnforced && (angleDiff > .6 || speed > 1.5)) {
+							Enemy.shipHealth -=  1 + (int) ((angleDiff>.6?(angleDiff-.3)*4:0))+(speed>1.5?speed:0) ;
 							if (Enemy.shipHealth <= 0) {
 								Orbital.playerIsAlive.set(false);
 							}

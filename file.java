@@ -1,10 +1,5 @@
 package orbital;
 
-
-
-
-
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -23,23 +18,6 @@ import java.util.Scanner;
  * @author rohan
  */
 public class file {
-
-	/**
-	 * Prints each line of the file fileName.
-	 *
-	 * @param fileName is the path to the file or just the name if it is local
-	 */
-	public static void printFile(String fileName) {
-		try {
-			File textFile = new File(fileName);
-			Scanner sc = new Scanner(textFile);
-			while (sc.hasNextLine()) {
-				System.out.println(sc.nextLine());
-			}
-		} catch (Exception e) {
-
-		}
-	}
 
 	/**
 	 *
@@ -68,92 +46,29 @@ public class file {
 	 * fileName.
 	 */
 	public static String[] getWordsFromFile(String fileName) {
-				int lengthOfFile = getLengthOfFile(fileName);
-		String[] wordBank=new String[lengthOfFile];
+		int lengthOfFile = getLengthOfFile(fileName);
+		String[] wordBank = new String[lengthOfFile];
 		int i = 0;
 		try {
 			File textFile = new File(fileName);
 			Scanner sc = new Scanner(textFile);
 			for (i = 0; i < lengthOfFile; i++) {
-			wordBank[i] = sc.nextLine();
+				wordBank[i] = sc.nextLine();
 			}
 			return wordBank;
 		} catch (Exception e) {
-                    System.err.println(e);
+			System.err.println(e);
 			System.exit(55);
 		}
 		return null;
 	}
 
 	/**
+	 * Writes a variable number of high scores to a file
 	 *
-	 * @param fileName is the path to the file or just the name if it is local
-	 * @return a String from file
+	 * @param fileName the file locally to write to
+	 * @param scores the high score object(s)
 	 */
-	public static String getStringFromFile(String fileName) {
-		String wordBank;
-		int i = 0;
-		try {
-			File textFile = new File(fileName);
-			Scanner sc = new Scanner(textFile);
-			wordBank = sc.nextLine();
-			return wordBank;
-		} catch (Exception e) {
-
-		}
-		return null;
-	}
-
-	public static double getDoubleFromFile(String fileName) {
-		String wordBank;
-		int i = 0;
-		try {
-			File textFile = new File(fileName);
-			Scanner sc = new Scanner(textFile);
-			wordBank = sc.nextLine();
-			return Double.parseDouble(wordBank);
-		} catch (Exception e) {
-
-		}
-		return .1;
-	}
-
-	public static double getIntFromFile(String fileName) {
-		String wordBank;
-		int i = 0;
-		try {
-			File textFile = new File(fileName);
-			Scanner sc = new Scanner(textFile);
-			wordBank = sc.nextLine();
-			return Integer.parseInt(wordBank);
-		} catch (Exception e) {
-
-		}
-		return .1;
-	}
-
-	//Pre: fileName contains the name of a txt file in current directory 
-	//Post: lines of text are written to fileName
-
-	public static void writeToFile(String fileName, String stuff) {
-
-		BufferedWriter output = null;
-		try {
-			File aFile = new File(fileName);
-			FileWriter myWriter = new FileWriter(aFile);
-			output = new BufferedWriter(myWriter);
-			output.write(stuff);
-			output.newLine();
-			output.close();
-		} catch (Exception e) {
-
-		}
-	}
-/**
-	* Writes a variable number of high scores to a file
-	* @param fileName the file locally to write to
-	* @param scores the high score object(s)
-	*/
 	public static void writeHighScoresToFile(String fileName, HighScore... scores) {
 
 		BufferedWriter output = null;
@@ -161,102 +76,14 @@ public class file {
 			File aFile = new File(fileName);
 			FileWriter myWriter = new FileWriter(aFile);
 			output = new BufferedWriter(myWriter);
-for(HighScore stuff: scores){
-			output.write(stuff.toString());
-			output.newLine();
-}
-			output.close();
-		} catch (Exception e) {
-
-		}
-	}
-/**
-	* Writes a single integer to a file
-	* @param fileName
-	* @param toWrite 
-	*/
-	public static void writeIntToFile(String fileName, int toWrite) {
-
-		BufferedWriter output = null;
-		try {
-			File aFile = new File(fileName);
-			FileWriter myWriter = new FileWriter(aFile);
-			output = new BufferedWriter(myWriter);
-			output.write(toWrite + "");
-			output.newLine();
-			output.close();
-		} catch (Exception e) {
-
-		}
-	}
-
-	public static void writeDoubleToFile(String fileName, double toWrite) {
-
-		BufferedWriter output = null;
-		try {
-			File aFile = new File(fileName);
-			FileWriter myWriter = new FileWriter(aFile);
-			output = new BufferedWriter(myWriter);
-			output.write(toWrite + "");
-			output.newLine();
-			output.close();
-		} catch (Exception e) {
-
-		}
-	}
-
-	public static void writeIntArrayToFile(String fileName, int[] intArray) {
-
-		BufferedWriter output = null;
-		try {
-			File aFile = new File(fileName);
-			FileWriter myWriter = new FileWriter(aFile);
-			output = new BufferedWriter(myWriter);
-			for (int i = 0; i < intArray.length; i++) {
-				output.write(intArray[i] + "");
+			for (HighScore stuff : scores) {
+				output.write(stuff.toString());
 				output.newLine();
 			}
 			output.close();
 		} catch (Exception e) {
 
 		}
-
 	}
-	public static void writeIntArrayListToFile(String fileName, ArrayList<Integer> intArray) {
 
-		BufferedWriter output = null;
-		try {
-			File aFile = new File(fileName);
-			FileWriter myWriter = new FileWriter(aFile);
-			output = new BufferedWriter(myWriter);
-			for (int i = 0; i < intArray.size(); i++) {
-				output.write(intArray.get(i) + "");
-				output.newLine();
-			}
-			output.close();
-		} catch (Exception e) {
-
-		}
-
-	}
-	public static int[] getIntArrayFromFile(String fileName) {
-		String[] ints = getWordsFromFile(fileName);
-		int[] integers = new int[getLengthOfFile(fileName)];
-		for (int i = 0; i < ints.length; i++) {
-			integers[i] = Integer.parseInt(ints[i]);
-		}
-		return integers;
-	}
-        	public static ArrayList<Integer> getArrayListIntFromFile(String fileName) {
-		String[] ints = getWordsFromFile(fileName);
-		Integer[] integers = new Integer[getLengthOfFile(fileName)];
-		for (int i = 0; i < ints.length; i++) {
-			integers[i] = Integer.parseInt(ints[i]);
-		}
-		ArrayList<Integer> returnMe= new ArrayList(0);
-                for(int i=0;i<ints.length;i++){
-                    returnMe.add(Integer.parseInt(ints[i]));
-                }
-	return returnMe;
-                }
 }

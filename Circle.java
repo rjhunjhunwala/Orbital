@@ -77,6 +77,13 @@ public class Circle {
 			} catch (Exception ex) {
 
 			}
+		} else 		if (radius == 32) {
+			//Mars has a radius of 120 units (not to scale)
+			try {
+				sprite = ImageIO.read(new File("mars.png"));
+			} catch (Exception ex) {
+
+			}
 		}
 	}
 
