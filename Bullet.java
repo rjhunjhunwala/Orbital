@@ -43,7 +43,10 @@ public class Bullet extends Movable {
 			this.alive.set(false);
 			return false;
 		}
-
+		if (x < -6 || y < -6 || y > GamePanel.screenheight + 6 || x > GamePanel.screenlength + 6) {
+this.alive.set(false);
+return false;
+		}
 		return true;
 	}
 }

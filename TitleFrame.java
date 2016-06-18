@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /*
@@ -26,7 +27,8 @@ import javax.swing.JPanel;
  * @author Rohans
  */
 public class TitleFrame extends JFrame {
-public static boolean sandboxModeEnabled;
+
+	public static boolean sandboxModeEnabled;
 	public static AtomicBoolean playing = new AtomicBoolean(false);
 	private static final long serialVersionUID = 1L;
 
@@ -39,7 +41,7 @@ public static boolean sandboxModeEnabled;
 			while (!playing.get()) {
 				t.repaint();
 			}
-						t.setVisible(false);
+			t.setVisible(false);
 			Orbital.playOneGame(sandboxModeEnabled);
 
 			while (playing.get()) {
@@ -68,9 +70,10 @@ public static boolean sandboxModeEnabled;
 	}
 
 	public static class TitlePanel extends JPanel {
-/**
-	* Shows what screen is currently showing
-	*/
+
+		/**
+		 * Shows what screen is currently showing
+		 */
 		public static AtomicReference<Screens> screen = new AtomicReference<>(Screens.title);
 
 		public static BufferedImage titleScreenImage;
@@ -83,7 +86,7 @@ public static boolean sandboxModeEnabled;
 		 */
 		private static final String dots = "........................................."
 										+ "...............................";
-		
+
 		public static final Font big = new Font("Monospaced", 24, 24);
 
 		static {
@@ -119,7 +122,8 @@ public static boolean sandboxModeEnabled;
 		@Override
 
 		public Dimension getPreferredSize() {
-			return new Dimension(768, 768);
+			int h=(int) (GamePanel.screenheight*.9>768?768:GamePanel.screenheight*.9);
+			return new Dimension(h, h);
 		}
 		public static final Color green = new Color(0, 255, 0);
 
@@ -129,13 +133,13 @@ public static boolean sandboxModeEnabled;
 
 			switch (screen.get()) {
 				case title:
-					g.drawImage(titleScreenImage, 0, 0, null);
+					g.drawImage(scaledImage(titleScreenImage), 0, 0, null);
 					break;
 				case help:
-					g.drawImage(helpScreenImage, 0, 0, null);
+					g.drawImage(scaledImage(helpScreenImage), 0, 0, null);
 					break;
 				case highscore:
-					g.drawImage(highScoreBackground, 0, 0, null);
+					g.drawImage(scaledImage(highScoreBackground), 0, 0, null);
 					g.setColor(Color.cyan);
 					g.setFont(big);
 					g.drawString("High Scores", 768 / 2 - 70, 50);
@@ -153,4 +157,18 @@ public static boolean sandboxModeEnabled;
 		}
 	}
 
+	public static BufferedImage scaledImage(BufferedImage i) {
+		BufferedImage before = i;
+		int w = before.getWidth();
+		int h = before.getHeight();
+		BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+		AffineTransform at = new AffineTransform();
+		double s = GamePanel.screenheight / 768.0;
+//System.out.println(s);
+		at.scale(s * .9, s * .9);
+		AffineTransformOp scaleOp
+										= new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+		after = scaleOp.filter(before, after);
+		return s > 1 ? before : after;
+	}
 }
