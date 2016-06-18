@@ -22,5 +22,28 @@ public class Bullet extends Movable {
 		dY = inDy;
 
 	}
+/**
+	* Removed screen wrapping for bullets
+	* @return 
+	*/
+	@Override
+	public boolean noCollisions() {
+		for (Circle circle : GamePanel.items.get()) {
+			if (circle != null && circle != this && circle.alive.get()) {
+				if (this.isTouching(circle)) {
+					this.alive.set(false);
+					if ((circle instanceof Movable) && !(circle instanceof MovingPlanet)) {
+						circle.alive.set(false);
+					}
+					return false;
+				}
+			}
+		}
+		if (this.isTouching(GamePanel.p)) {
+			this.alive.set(false);
+			return false;
+		}
 
+		return true;
+	}
 }
