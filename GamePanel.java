@@ -35,7 +35,9 @@ public final class GamePanel extends JPanel {
 		double width = screenSize.getWidth();
 		double height = screenSize.getHeight();
 		screenheight = (int) height + 2;
-		screenlength = (int) width + 2;
+//screenheight=768;		
+screenlength = (int) width + 2;
+	//screenlength=1024;
 	}
 	/**
 	 * Coordinate of the midpoint of the axis

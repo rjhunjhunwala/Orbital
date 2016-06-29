@@ -27,7 +27,9 @@ import javax.swing.JPanel;
  * @author Rohans
  */
 public class TitleFrame extends JFrame {
-
+static{
+	Instrument.main(null);
+}
 	public static boolean sandboxModeEnabled;
 	public static AtomicBoolean playing = new AtomicBoolean(false);
 	private static final long serialVersionUID = 1L;
