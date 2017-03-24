@@ -8,4 +8,5 @@ Your ship can land on the planets<br/>
 <br/>
 <hr/>
 #Screenshot
+
 ![alt tag](https://raw.githubusercontent.com/rjhunjhunwala/Orbital/master/ScreenshotOrbital.png)
