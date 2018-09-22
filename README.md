@@ -7,6 +7,7 @@ use S for decelleration (front thrusters)<br/>
 Your ship can land on the planets<br/>
 <br/>
 <hr/>
-#Screenshot
+
+# Screenshot
 
 ![alt tag](https://raw.githubusercontent.com/rjhunjhunwala/Orbital/master/ScreenshotOrbital.png)
